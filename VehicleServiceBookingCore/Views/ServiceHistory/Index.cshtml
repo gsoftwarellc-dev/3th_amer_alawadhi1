@@ -1,0 +1,196 @@
+@model VehicleServiceBooking.Models.ServiceHistoryViewModel
+@using VehicleServiceBooking.Models
+@{
+    ViewData["Title"] = "Service History & Reports";
+    ViewData["CurrentStep"] = 4;
+}
+
+@await Html.PartialAsync("_StepIndicator")
+
+<h1>Step 4: Service History &amp; Reports</h1>
+<p>Search and filter your service bookings, or browse the reports below to track
+   the status of your vehicle's maintenance.</p>
+
+<div class="position-banner">
+    <span class="badge-corner">Live Search</span>
+    Use the filters below to search bookings by status, date, or plate number.
+    Results update from the database when you click "Search".
+</div>
+
+<form asp-controller="ServiceHistory" asp-action="Index" method="get" class="filter-bar">
+    <div class="form-group">
+        <label for="status">Status</label>
+        <select id="status" name="status">
+            <option value="">All Statuses</option>
+            @foreach (var status in ServiceBooking.Statuses)
+            {
+                if (status == Model.Search.Status)
+                {
+                    <option value="@status" selected>@status</option>
+                }
+                else
+                {
+                    <option value="@status">@status</option>
+                }
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="bookingDate">Booking Date</label>
+        <input type="date" id="bookingDate" name="bookingDate" value="@(Model.Search.BookingDate?.ToString("yyyy-MM-dd"))" />
+    </div>
+    <div class="form-group">
+        <label for="plateNumber">Plate Number</label>
+        <input type="text" id="plateNumber" name="plateNumber" value="@Model.Search.PlateNumber" placeholder="e.g. A12345" />
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn">Search</button>
+    </div>
+    <div class="form-group">
+        <a class="btn btn-secondary" asp-controller="ServiceHistory" asp-action="Index">Reset</a>
+    </div>
+</form>
+
+<h2>Search Results</h2>
+<div class="table-wrapper">
+    <table class="data-table">
+        <caption>Bookings matching your search</caption>
+        <thead>
+            <tr>
+                <th scope="col">ID</th><th scope="col">Owner</th><th scope="col">Plate</th>
+                <th scope="col">Service Type</th><th scope="col">Date</th><th scope="col">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Search.Results.Count == 0)
+            {
+                <tr><td colspan="6">No bookings match your search criteria.</td></tr>
+            }
+            else
+            {
+                foreach (var b in Model.Search.Results)
+                {
+                    <tr>
+                        <td>@b.BookingID</td><td>@b.OwnerName</td><td>@b.PlateNumber</td>
+                        <td>@b.ServiceType</td><td>@b.BookingDate.ToString("yyyy-MM-dd")</td><td>@b.Status</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+<hr />
+
+<h2>Reports</h2>
+
+<h3>1. Service Bookings by Date</h3>
+<div class="table-wrapper">
+    <table class="data-table">
+        <thead>
+            <tr><th scope="col">Plate</th><th scope="col">Owner</th><th scope="col">Service Type</th><th scope="col">Date</th><th scope="col">Status</th></tr>
+        </thead>
+        <tbody>
+            @if (Model.ByDate.Count == 0)
+            {
+                <tr><td colspan="5">No bookings recorded.</td></tr>
+            }
+            else
+            {
+                foreach (var b in Model.ByDate)
+                {
+                    <tr><td>@b.PlateNumber</td><td>@b.OwnerName</td><td>@b.ServiceType</td><td>@b.BookingDate.ToString("yyyy-MM-dd")</td><td>@b.Status</td></tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+<h3>2. Service Bookings by Status</h3>
+<div class="table-wrapper">
+    <table class="data-table">
+        <thead>
+            <tr><th scope="col">Plate</th><th scope="col">Owner</th><th scope="col">Service Type</th><th scope="col">Date</th><th scope="col">Status</th></tr>
+        </thead>
+        <tbody>
+            @if (Model.ByStatus.Count == 0)
+            {
+                <tr><td colspan="5">No bookings recorded.</td></tr>
+            }
+            else
+            {
+                foreach (var b in Model.ByStatus)
+                {
+                    <tr><td>@b.PlateNumber</td><td>@b.OwnerName</td><td>@b.ServiceType</td><td>@b.BookingDate.ToString("yyyy-MM-dd")</td><td>@b.Status</td></tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+<h3>3. Vehicle Service History</h3>
+<form asp-controller="ServiceHistory" asp-action="Index" method="get" class="form-group" style="max-width:320px;">
+    <label for="vehicleId">Select Vehicle</label>
+    <select id="vehicleId" name="vehicleId" onchange="this.form.submit()">
+        <option value="">-- Select Vehicle --</option>
+        @foreach (var vehicle in Model.Vehicles)
+        {
+            if (vehicle.VehicleID == Model.SelectedVehicleId)
+            {
+                <option value="@vehicle.VehicleID" selected>@vehicle.PlateNumber - @vehicle.Brand @vehicle.Model (@vehicle.OwnerName)</option>
+            }
+            else
+            {
+                <option value="@vehicle.VehicleID">@vehicle.PlateNumber - @vehicle.Brand @vehicle.Model (@vehicle.OwnerName)</option>
+            }
+        }
+    </select>
+</form>
+<div class="table-wrapper">
+    <table class="data-table">
+        <thead>
+            <tr><th scope="col">Service Type</th><th scope="col">Date</th><th scope="col">Status</th><th scope="col">Notes</th></tr>
+        </thead>
+        <tbody>
+            @if (Model.VehicleHistory.Count == 0)
+            {
+                <tr><td colspan="4">Select a vehicle to view its service history.</td></tr>
+            }
+            else
+            {
+                foreach (var b in Model.VehicleHistory)
+                {
+                    <tr><td>@b.ServiceType</td><td>@b.BookingDate.ToString("yyyy-MM-dd")</td><td>@b.Status</td><td>@b.Notes</td></tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+<h3>4. Customer Vehicle List</h3>
+<div class="table-wrapper">
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th scope="col">Customer</th><th scope="col">Email</th><th scope="col">Phone</th>
+                <th scope="col">Plate</th><th scope="col">Brand</th><th scope="col">Model</th><th scope="col">Year</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.CustomerVehicles.Count == 0)
+            {
+                <tr><td colspan="7">No customers or vehicles recorded.</td></tr>
+            }
+            else
+            {
+                foreach (var row in Model.CustomerVehicles)
+                {
+                    <tr>
+                        <td>@row.FullName</td><td>@row.Email</td><td>@row.Phone</td>
+                        <td>@row.PlateNumber</td><td>@row.Brand</td><td>@row.Model</td><td>@row.Year</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Customer Registration - Vehicle Maintenance Service Booking (Static Demo)</title>
+    <link rel="stylesheet" href="css/site.css" />
+</head>
+<body>
+    <div id="demo-banner-mount"></div>
+    <div id="site-header-mount"></div>
+
+    <main class="page-content">
+        <ol class="step-indicator" aria-label="Booking workflow progress">
+            <li class="active"><span class="step-indicator-num">1</span> Register Customer</li>
+            <li><span class="step-indicator-num">2</span> Register Vehicle</li>
+            <li><span class="step-indicator-num">3</span> Book Service</li>
+            <li><span class="step-indicator-num">4</span> Track History</li>
+        </ol>
+
+        <h1>Step 1: Customer Registration</h1>
+        <p>First, create your customer profile below. Once registered, you'll be able
+           to add a vehicle (Step 2) and then book a service (Step 3).</p>
+
+        <div class="form-card demo-form-disabled">
+            <form class="js-demo-form" novalidate>
+                <fieldset>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="FullName">Full Name</label>
+                            <input type="text" id="FullName" name="FullName" placeholder="e.g. Ahmed Al Mazrouei" />
+                        </div>
+                        <div class="form-group">
+                            <label for="Email">Email</label>
+                            <input type="email" id="Email" name="Email" placeholder="name@example.com" />
+                        </div>
+                        <div class="form-group">
+                            <label for="Phone">Phone</label>
+                            <input type="text" id="Phone" name="Phone" placeholder="e.g. 0501234567" />
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn">Register Customer</button>
+                        <button type="reset" class="btn btn-secondary">Clear</button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+
+        <h2>Registered Customers (Sample Data)</h2>
+        <div class="table-wrapper">
+            <table class="data-table">
+                <caption>Sample customers - for layout preview only</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Full Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Phone</th>
+                        <th scope="col">Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td><td>Ahmed Al Mazrouei</td><td>ahmed.mazrouei@example.com</td><td>0501234567</td>
+                        <td><button class="btn btn-danger js-demo-delete">Delete</button></td>
+                    </tr>
+                    <tr>
+                        <td>2</td><td>Sara Al Nuaimi</td><td>sara.nuaimi@example.com</td><td>0559876543</td>
+                        <td><button class="btn btn-danger js-demo-delete">Delete</button></td>
+                    </tr>
+                    <tr>
+                        <td>3</td><td>John Peterson</td><td>john.peterson@example.com</td><td>0521122334</td>
+                        <td><button class="btn btn-danger js-demo-delete">Delete</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <div id="site-footer-mount"></div>
+
+    <script src="js/layout.js"></script>
+    <script src="js/demo.js"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+# .NET build artifacts
+bin/
+obj/
+*.user
+.vs/
+
+# Setup marker files
+.setup-complete
+
+# OS files
+.DS_Store
+
+# Local tooling
+.claude/
+
+# Packaged zips
+*.zip

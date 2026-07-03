@@ -1,0 +1,138 @@
+@model List<VehicleServiceBooking.Models.ServiceBooking>
+@using VehicleServiceBooking.Models
+@{
+    ViewData["Title"] = "Service Booking";
+    ViewData["CurrentStep"] = 3;
+    var vehicles = ViewBag.Vehicles as List<Vehicle> ?? new List<Vehicle>();
+}
+
+@await Html.PartialAsync("_StepIndicator")
+
+<h1>Step 3: Book a Service</h1>
+<p>Select one of your registered vehicles, choose a service type, and pick a date
+   to book a maintenance appointment.</p>
+@if (vehicles.Count == 0)
+{
+    <div class="status-message error">
+        No vehicles found yet. Please <a asp-controller="Vehicles" asp-action="Index" style="color:inherit;text-decoration:underline;">register a vehicle</a> first.
+    </div>
+}
+
+@if (TempData["StatusMessage"] != null)
+{
+    bool isError = TempData["StatusIsError"] is bool b && b;
+    <div class="status-message @(isError ? "error" : "success")">@TempData["StatusMessage"]</div>
+}
+
+<div class="form-card">
+    <form asp-controller="Bookings" asp-action="Create" method="post" id="bookingForm" novalidate>
+        @Html.AntiForgeryToken()
+        <div class="form-grid">
+            <div class="form-group">
+                <label for="VehicleID">Vehicle</label>
+                <select id="VehicleID" name="VehicleID" required>
+                    <option value="">-- Select Vehicle --</option>
+                    @foreach (var vehicle in vehicles)
+                    {
+                        <option value="@vehicle.VehicleID">@vehicle.PlateNumber - @vehicle.Brand @vehicle.Model (@vehicle.OwnerName)</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="serviceTypeSelect">Service Type</label>
+                <select id="serviceTypeSelect" name="ServiceType" required>
+                    <option value="">-- Select Service Type --</option>
+                    @foreach (var type in ServiceBooking.ServiceTypes)
+                    {
+                        <option value="@type">@type</option>
+                    }
+                </select>
+                <div id="serviceDetailsBox" class="service-details-box" style="display:none;" aria-live="polite"></div>
+            </div>
+            <div class="form-group">
+                <label for="BookingDate">Booking Date</label>
+                <input type="date" id="BookingDate" name="BookingDate" required />
+            </div>
+            <div class="form-group">
+                <label for="Notes">Notes</label>
+                <textarea id="Notes" name="Notes" placeholder="Optional notes for the mechanic"></textarea>
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn">Book Service</button>
+            <button type="reset" class="btn btn-secondary">Clear</button>
+        </div>
+    </form>
+</div>
+
+<h2>All Service Bookings</h2>
+<div class="table-wrapper">
+    <table class="data-table">
+        <caption>All service bookings</caption>
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Owner</th>
+                <th scope="col">Plate</th>
+                <th scope="col">Service Type</th>
+                <th scope="col">Date</th>
+                <th scope="col">Status</th>
+                <th scope="col">Notes</th>
+                <th scope="col">Save</th>
+                <th scope="col">Cancel</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Count == 0)
+            {
+                <tr><td colspan="9">No service bookings yet.</td></tr>
+            }
+            else
+            {
+                foreach (var booking in Model)
+                {
+                    <tr>
+                        <td>@booking.BookingID</td>
+                        <td>@booking.OwnerName</td>
+                        <td>@booking.PlateNumber</td>
+                        <td>@booking.ServiceType</td>
+                        <td>
+                            <form asp-controller="Bookings" asp-action="Edit" method="post" id="editBooking-@booking.BookingID">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="bookingId" value="@booking.BookingID" />
+                                <input type="date" name="bookingDate" value="@booking.BookingDate.ToString("yyyy-MM-dd")" required />
+                            </form>
+                        </td>
+                        <td>
+                            <select name="status" form="editBooking-@booking.BookingID">
+                                @foreach (var status in ServiceBooking.Statuses)
+                                {
+                                    if (status == booking.Status)
+                                    {
+                                        <option value="@status" selected>@status</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@status">@status</option>
+                                    }
+                                }
+                            </select>
+                            <span class="badge @booking.Status.Replace(" ", "-")">@booking.Status</span>
+                        </td>
+                        <td><input type="text" name="notes" form="editBooking-@booking.BookingID" value="@booking.Notes" /></td>
+                        <td><button type="submit" form="editBooking-@booking.BookingID" class="btn btn-secondary">Save</button></td>
+                        <td>
+                            <form asp-controller="Bookings" asp-action="Delete" method="post" class="js-delete-form">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="bookingId" value="@booking.BookingID" />
+                                <button type="submit" class="btn btn-danger js-cancel-booking"
+                                        data-confirm-message="Are you sure you want to cancel this service booking? This cannot be undone.">Cancel</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

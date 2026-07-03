@@ -1,0 +1,42 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.Master.cs" Inherits="VehicleServiceBooking.SiteMaster" %>
+<!DOCTYPE html>
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vehicle Maintenance Service Booking</title>
+    <link rel="stylesheet" type="text/css" href="~/CSS/site.css" runat="server" />
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server" />
+</head>
+<body>
+    <form id="mainForm" runat="server">
+        <header class="site-header">
+            <div class="header-inner">
+                <a class="brand" href="~/Pages/Home.aspx" runat="server">
+                    <span class="brand-icon" aria-hidden="true">&#128663;</span>
+                    AutoCare Service Center
+                </a>
+                <nav class="site-nav" aria-label="Main navigation">
+                    <ul>
+                        <li><a href="~/Pages/Home.aspx" runat="server">Home</a></li>
+                        <li><a href="~/Pages/Services.aspx" runat="server">Services</a></li>
+                        <li><a href="~/Pages/CustomerRegistration.aspx" runat="server">Register Customer</a></li>
+                        <li><a href="~/Pages/VehicleRegistration.aspx" runat="server">Register Vehicle</a></li>
+                        <li><a href="~/Pages/ServiceBookingPage.aspx" runat="server">Book Service</a></li>
+                        <li><a href="~/Pages/ServiceHistory.aspx" runat="server">Service History &amp; Reports</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <main class="page-content">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+        </main>
+
+        <footer class="site-footer">
+            <p>&copy; <%= DateTime.Now.Year %> AutoCare Service Center. All rights reserved.</p>
+        </footer>
+    </form>
+    <script src="../JS/validation.js"></script>
+</body>
+</html>

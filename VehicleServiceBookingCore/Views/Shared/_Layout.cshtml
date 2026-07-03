@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Vehicle Maintenance Service Booking</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-inner">
+            <a class="brand" asp-controller="Home" asp-action="Index">
+                <span class="brand-icon" aria-hidden="true">&#128663;</span>
+                AutoCare Service Center
+            </a>
+            <nav class="site-nav" aria-label="Main navigation">
+                <ul>
+                    <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li><a asp-controller="Services" asp-action="Index">Services</a></li>
+                    <li><a asp-controller="Customers" asp-action="Index">1. Register Customer</a></li>
+                    <li><a asp-controller="Vehicles" asp-action="Index">2. Register Vehicle</a></li>
+                    <li><a asp-controller="Bookings" asp-action="Index">3. Book Service</a></li>
+                    <li><a asp-controller="ServiceHistory" asp-action="Index">4. Service History &amp; Reports</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="page-content">
+        @RenderBody()
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; @DateTime.Now.Year AutoCare Service Center. All rights reserved.</p>
+        <p class="footer-credit">Made by Amer Alawadhi &mdash; ID: 3087</p>
+    </footer>
+
+    <script src="~/js/validation.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

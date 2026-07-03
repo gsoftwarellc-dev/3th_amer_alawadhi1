@@ -1,0 +1,506 @@
+/* ============================================================
+   Vehicle Maintenance Service Booking System
+   External stylesheet - typography, box model, flexbox, grid,
+   and responsive media queries.
+   ============================================================ */
+
+:root {
+    --color-primary: #0b3d66;
+    --color-primary-light: #1a5c94;
+    --color-accent: #ff7a00;
+    --color-bg: #f4f6f8;
+    --color-card: #ffffff;
+    --color-border: #d7dee5;
+    --color-text: #232a31;
+    --color-muted: #5f6b76;
+    --radius: 8px;
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+h1, h2, h3, h4 {
+    font-family: "Segoe UI Semibold", "Segoe UI", sans-serif;
+    color: var(--color-primary);
+    margin-top: 0;
+}
+
+h1 { font-size: 2rem; }
+h2 { font-size: 1.5rem; }
+h3 { font-size: 1.2rem; }
+
+a {
+    color: var(--color-primary-light);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+p {
+    margin: 0 0 1rem 0;
+}
+
+ul, ol {
+    padding-left: 1.25rem;
+}
+
+/* ============================================================
+   Header / Navigation - Flexbox
+   ============================================================ */
+
+.site-header {
+    background-color: var(--color-primary);
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0.85rem 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+}
+
+.brand {
+    color: #ffffff;
+    font-size: 1.3rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.brand:hover {
+    text-decoration: none;
+    opacity: 0.9;
+}
+
+.site-nav ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    margin: 0;
+    padding: 0;
+}
+
+.site-nav a {
+    color: #e6eef5;
+    font-weight: 500;
+    padding: 0.35rem 0;
+    border-bottom: 2px solid transparent;
+}
+
+.site-nav a:hover {
+    color: #ffffff;
+    text-decoration: none;
+    border-bottom-color: var(--color-accent);
+}
+
+/* ============================================================
+   Layout
+   ============================================================ */
+
+.page-content {
+    flex: 1;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+}
+
+.site-footer {
+    background-color: var(--color-primary);
+    color: #cfe0ef;
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.85rem;
+}
+
+/* ============================================================
+   Hero section - Flexbox
+   ============================================================ */
+
+.hero {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 2rem;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+    color: #ffffff;
+    border-radius: var(--radius);
+    padding: 2.5rem;
+    margin-bottom: 2rem;
+}
+
+.hero-text {
+    flex: 1 1 320px;
+}
+
+.hero-image {
+    flex: 1 1 280px;
+    text-align: center;
+}
+
+.hero-image img {
+    max-width: 100%;
+    border-radius: var(--radius);
+}
+
+.btn {
+    display: inline-block;
+    background-color: var(--color-accent);
+    color: #ffffff;
+    padding: 0.65rem 1.4rem;
+    border-radius: var(--radius);
+    border: none;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn:hover {
+    background-color: #e56a00;
+    text-decoration: none;
+    transform: translateY(-1px);
+}
+
+.btn-secondary {
+    background-color: var(--color-primary-light);
+}
+
+.btn-secondary:hover {
+    background-color: var(--color-primary);
+}
+
+.btn-danger {
+    background-color: #c62828;
+}
+
+.btn-danger:hover {
+    background-color: #a31f1f;
+}
+
+/* ============================================================
+   Cards Grid - CSS Grid
+   ============================================================ */
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+}
+
+.card {
+    background-color: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+}
+
+.card h3 {
+    margin-bottom: 0.5rem;
+}
+
+.card .price {
+    color: var(--color-accent);
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+/* ============================================================
+   Forms - Box model
+   ============================================================ */
+
+.form-card {
+    background-color: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 2rem;
+    max-width: 640px;
+    margin: 0 auto;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 1.1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+    color: var(--color-primary);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: 0.6rem 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    font-size: 1rem;
+    font-family: inherit;
+    width: 100%;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--color-primary-light);
+    box-shadow: 0 0 0 3px rgba(26, 92, 148, 0.15);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 90px;
+}
+
+.field-error {
+    color: #c62828;
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+    min-height: 1.1em;
+}
+
+.form-actions {
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.status-message {
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius);
+    margin-bottom: 1.25rem;
+    font-weight: 600;
+}
+
+.status-message.success {
+    background-color: #e3f6e8;
+    color: #1e7a34;
+    border: 1px solid #b6e3c0;
+}
+
+.status-message.error {
+    background-color: #fdecea;
+    color: #c62828;
+    border: 1px solid #f5c6c3;
+}
+
+.service-details-box {
+    background-color: #eef5fb;
+    border: 1px solid #cfe0ef;
+    border-radius: var(--radius);
+    padding: 1rem;
+    margin-top: 0.5rem;
+    font-size: 0.92rem;
+    color: var(--color-primary);
+}
+
+/* ============================================================
+   Data Tables
+   ============================================================ */
+
+.table-wrapper {
+    overflow-x: auto;
+    background-color: var(--color-card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 0.5rem;
+}
+
+table.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.92rem;
+}
+
+table.data-table caption {
+    text-align: left;
+    font-weight: bold;
+    padding: 0.5rem 0.25rem;
+    color: var(--color-primary);
+}
+
+table.data-table th,
+table.data-table td {
+    text-align: left;
+    padding: 0.65rem 0.75rem;
+    border-bottom: 1px solid var(--color-border);
+}
+
+table.data-table th {
+    background-color: var(--color-primary);
+    color: #ffffff;
+    position: sticky;
+    top: 0;
+}
+
+table.data-table tr:nth-child(even) {
+    background-color: #f7fafc;
+}
+
+table.data-table tr:hover {
+    background-color: #eef5fb;
+}
+
+.badge {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.badge.Pending { background-color: #f0a500; }
+.badge.Confirmed { background-color: #1a5c94; }
+.badge.In-Progress { background-color: #8e44ad; }
+.badge.Completed { background-color: #1e7a34; }
+.badge.Cancelled { background-color: #c62828; }
+
+/* ============================================================
+   Filter bar - Flexbox
+   ============================================================ */
+
+.filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: flex-end;
+    background-color: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+}
+
+.filter-bar .form-group {
+    margin-bottom: 0;
+    min-width: 160px;
+    flex: 1 1 160px;
+}
+
+/* Float utility demonstration (per requirement) */
+.float-note {
+    float: right;
+    font-size: 0.85rem;
+    color: var(--color-muted);
+}
+
+.clearfix::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Position utility demonstration */
+.position-banner {
+    position: relative;
+    padding: 0.75rem 1rem;
+    background-color: #fff4e5;
+    border: 1px solid #ffd8a8;
+    border-radius: var(--radius);
+    margin-bottom: 1.5rem;
+}
+
+.position-banner .badge-corner {
+    position: absolute;
+    top: -10px;
+    right: 12px;
+    background-color: var(--color-accent);
+    color: #fff;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+}
+
+/* ============================================================
+   Responsive Design - Media Queries
+   ============================================================ */
+
+@media (max-width: 768px) {
+    .header-inner {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .site-nav ul {
+        gap: 0.75rem 1rem;
+    }
+
+    .hero {
+        flex-direction: column;
+        padding: 1.5rem;
+        text-align: center;
+    }
+
+    .hero-image {
+        order: -1;
+    }
+
+    .form-card {
+        padding: 1.25rem;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 { font-size: 1.6rem; }
+    h2 { font-size: 1.25rem; }
+
+    .site-nav ul {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .card-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+        text-align: center;
+    }
+}

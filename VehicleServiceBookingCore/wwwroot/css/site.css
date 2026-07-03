@@ -1,0 +1,827 @@
+/* ============================================================
+   Vehicle Maintenance Service Booking System
+   External stylesheet - typography, box model, flexbox, grid,
+   and responsive media queries.
+   ============================================================ */
+
+:root {
+    --color-primary: #0b3d66;
+    --color-primary-light: #1a5c94;
+    --color-accent: #ff7a00;
+    --color-bg: #f4f6f8;
+    --color-card: #ffffff;
+    --color-border: #d7dee5;
+    --color-text: #232a31;
+    --color-muted: #5f6b76;
+    --radius: 8px;
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+h1, h2, h3, h4 {
+    font-family: "Segoe UI Semibold", "Segoe UI", sans-serif;
+    color: var(--color-primary);
+    margin-top: 0;
+}
+
+h1 { font-size: 2rem; }
+h2 { font-size: 1.5rem; }
+h3 { font-size: 1.2rem; }
+
+a {
+    color: var(--color-primary-light);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+p {
+    margin: 0 0 1rem 0;
+}
+
+ul, ol {
+    padding-left: 1.25rem;
+}
+
+/* ============================================================
+   Header / Navigation - Flexbox
+   ============================================================ */
+
+.site-header {
+    background-color: var(--color-primary);
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0.85rem 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+}
+
+.brand {
+    color: #ffffff;
+    font-size: 1.3rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.brand:hover {
+    text-decoration: none;
+    opacity: 0.9;
+}
+
+.site-nav ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    margin: 0;
+    padding: 0;
+}
+
+.site-nav a {
+    color: #e6eef5;
+    font-weight: 500;
+    padding: 0.35rem 0;
+    border-bottom: 2px solid transparent;
+}
+
+.site-nav a:hover {
+    color: #ffffff;
+    text-decoration: none;
+    border-bottom-color: var(--color-accent);
+}
+
+/* ============================================================
+   Layout
+   ============================================================ */
+
+.page-content {
+    flex: 1;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+}
+
+.site-footer {
+    background-color: var(--color-primary);
+    color: #cfe0ef;
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.85rem;
+}
+
+.site-footer p {
+    margin: 0.15rem 0;
+}
+
+.footer-credit {
+    color: #8fb3d6;
+    font-size: 0.78rem;
+}
+
+/* ============================================================
+   Hero section - Flexbox
+   ============================================================ */
+
+.hero {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 2.5rem;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+    color: #ffffff;
+    border-radius: var(--radius);
+    padding: 3rem 2.5rem;
+    margin-bottom: 2rem;
+    overflow: hidden;
+    min-height: 90vh;
+}
+
+.hero-text {
+    flex: 6 1 340px;
+}
+
+.hero-eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    margin-bottom: 0.5rem;
+}
+
+.hero-text h1 {
+    color: #ffffff;
+    font-size: 2.4rem;
+    line-height: 1.15;
+    margin-bottom: 1rem;
+}
+
+.hero-text > p {
+    font-size: 1.05rem;
+    color: #eaf2fb;
+    max-width: 46ch;
+}
+
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin: 1.5rem 0;
+}
+
+.hero-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.75rem;
+    list-style: none;
+    margin: 1.5rem 0 0 0;
+    padding: 1.25rem 0 0 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.hero-stats li {
+    font-size: 0.9rem;
+    color: #dcebf7;
+}
+
+.hero-stats strong {
+    display: block;
+    font-size: 1.4rem;
+    color: #ffffff;
+}
+
+.hero-image {
+    flex: 4 1 260px;
+    text-align: center;
+}
+
+.hero-image img {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+    border-radius: var(--radius);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+}
+
+.btn {
+    display: inline-block;
+    background-color: var(--color-accent);
+    color: #ffffff;
+    padding: 0.65rem 1.4rem;
+    border-radius: var(--radius);
+    border: none;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn:hover {
+    background-color: #e56a00;
+    text-decoration: none;
+    transform: translateY(-1px);
+}
+
+.btn-secondary {
+    background-color: var(--color-primary-light);
+}
+
+.btn-secondary:hover {
+    background-color: var(--color-primary);
+}
+
+.btn-danger {
+    background-color: #c62828;
+}
+
+.btn-danger:hover {
+    background-color: #a31f1f;
+}
+
+/* ============================================================
+   How It Works - step-by-step guide (Flexbox + Grid)
+   ============================================================ */
+
+.subtitle {
+    color: var(--color-muted);
+    margin-top: -0.5rem;
+}
+
+.steps-guide {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    gap: 0.75rem;
+    margin: 1.5rem 0;
+}
+
+.step-card {
+    flex: 1 1 200px;
+    background-color: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 1.5rem;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.step-card:hover {
+    text-decoration: none;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    border-color: var(--color-primary-light);
+}
+
+.step-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    background-color: var(--color-primary);
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.step-card h3 {
+    margin: 0.25rem 0 0 0;
+}
+
+.step-card p {
+    margin: 0;
+    color: var(--color-muted);
+    flex-grow: 1;
+}
+
+.step-cta {
+    font-weight: 600;
+    color: var(--color-accent);
+}
+
+.step-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-border);
+    font-size: 1.5rem;
+    font-weight: bold;
+    flex: 0 0 auto;
+}
+
+/* Persistent step indicator shown on the workflow pages */
+.step-indicator {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+    margin: 0 0 1.5rem 0;
+    padding: 0;
+}
+
+.step-indicator li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    background-color: var(--color-card);
+    border: 1px solid var(--color-border);
+    color: var(--color-muted);
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.step-indicator li .step-indicator-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    background-color: var(--color-border);
+    color: #ffffff;
+    font-size: 0.8rem;
+}
+
+.step-indicator li.active {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: #ffffff;
+}
+
+.step-indicator li.active .step-indicator-num {
+    background-color: var(--color-accent);
+}
+
+.step-indicator li.done .step-indicator-num {
+    background-color: #1e7a34;
+}
+
+.step-indicator li.done .step-indicator-num::before {
+    content: "\2713";
+}
+
+@media (max-width: 700px) {
+    .steps-guide {
+        flex-direction: column;
+    }
+
+    .step-arrow {
+        transform: rotate(90deg);
+    }
+}
+
+/* ============================================================
+   Cards Grid - CSS Grid
+   ============================================================ */
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+}
+
+.card {
+    background-color: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+}
+
+.card h3 {
+    margin-bottom: 0.5rem;
+}
+
+.card .price {
+    color: var(--color-accent);
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+/* ============================================================
+   Page hero banner (Services page, etc.)
+   ============================================================ */
+
+.page-hero {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+    color: #ffffff;
+    border-radius: var(--radius);
+    padding: 2.5rem;
+    margin-bottom: 2rem;
+}
+
+.page-hero h1 {
+    color: #ffffff;
+    margin-bottom: 0.75rem;
+}
+
+.page-hero p {
+    color: #eaf2fb;
+    max-width: 60ch;
+    margin-bottom: 0;
+}
+
+/* ============================================================
+   Service cards (Services page)
+   ============================================================ */
+
+.service-card {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.service-card-icon {
+    font-size: 2rem;
+    line-height: 1;
+    margin-bottom: 0.75rem;
+}
+
+.service-card p {
+    color: var(--color-muted);
+    flex-grow: 1;
+}
+
+.service-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin: 0.75rem 0;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--color-border);
+}
+
+.service-duration {
+    color: var(--color-muted);
+    font-size: 0.85rem;
+}
+
+.service-card-cta {
+    align-self: flex-start;
+    margin-top: 0.25rem;
+}
+
+/* ============================================================
+   Services bottom CTA banner
+   ============================================================ */
+
+.services-cta-banner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    background-color: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-left: 5px solid var(--color-accent);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 1.75rem 2rem;
+    margin: 2rem 0 1rem 0;
+}
+
+.services-cta-banner h2 {
+    margin-bottom: 0.25rem;
+}
+
+.services-cta-banner p {
+    color: var(--color-muted);
+    margin-bottom: 0;
+}
+
+@media (max-width: 480px) {
+    .services-cta-banner {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+/* ============================================================
+   Forms - Box model
+   ============================================================ */
+
+.form-card {
+    background-color: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 2rem;
+    max-width: 640px;
+    margin: 0 auto;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 1.1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+    color: var(--color-primary);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: 0.6rem 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    font-size: 1rem;
+    font-family: inherit;
+    width: 100%;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--color-primary-light);
+    box-shadow: 0 0 0 3px rgba(26, 92, 148, 0.15);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 90px;
+}
+
+.field-error {
+    color: #c62828;
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+    min-height: 1.1em;
+}
+
+.form-actions {
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.status-message {
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius);
+    margin-bottom: 1.25rem;
+    font-weight: 600;
+}
+
+.status-message.success {
+    background-color: #e3f6e8;
+    color: #1e7a34;
+    border: 1px solid #b6e3c0;
+}
+
+.status-message.error {
+    background-color: #fdecea;
+    color: #c62828;
+    border: 1px solid #f5c6c3;
+}
+
+.service-details-box {
+    background-color: #eef5fb;
+    border: 1px solid #cfe0ef;
+    border-radius: var(--radius);
+    padding: 1rem;
+    margin-top: 0.5rem;
+    font-size: 0.92rem;
+    color: var(--color-primary);
+}
+
+/* ============================================================
+   Data Tables
+   ============================================================ */
+
+.table-wrapper {
+    overflow-x: auto;
+    background-color: var(--color-card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 0.5rem;
+}
+
+table.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.92rem;
+}
+
+table.data-table caption {
+    text-align: left;
+    font-weight: bold;
+    padding: 0.5rem 0.25rem;
+    color: var(--color-primary);
+}
+
+table.data-table th,
+table.data-table td {
+    text-align: left;
+    padding: 0.65rem 0.75rem;
+    border-bottom: 1px solid var(--color-border);
+}
+
+table.data-table th {
+    background-color: var(--color-primary);
+    color: #ffffff;
+    position: sticky;
+    top: 0;
+}
+
+table.data-table tr:nth-child(even) {
+    background-color: #f7fafc;
+}
+
+table.data-table tr:hover {
+    background-color: #eef5fb;
+}
+
+.badge {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.badge.Pending { background-color: #f0a500; }
+.badge.Confirmed { background-color: #1a5c94; }
+.badge.In-Progress { background-color: #8e44ad; }
+.badge.Completed { background-color: #1e7a34; }
+.badge.Cancelled { background-color: #c62828; }
+
+/* ============================================================
+   Filter bar - Flexbox
+   ============================================================ */
+
+.filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: flex-end;
+    background-color: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+}
+
+.filter-bar .form-group {
+    margin-bottom: 0;
+    min-width: 160px;
+    flex: 1 1 160px;
+}
+
+/* Float utility demonstration (per requirement) */
+.float-note {
+    float: right;
+    font-size: 0.85rem;
+    color: var(--color-muted);
+}
+
+.clearfix::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Position utility demonstration */
+.position-banner {
+    position: relative;
+    padding: 0.75rem 1rem;
+    background-color: #fff4e5;
+    border: 1px solid #ffd8a8;
+    border-radius: var(--radius);
+    margin-bottom: 1.5rem;
+}
+
+.position-banner .badge-corner {
+    position: absolute;
+    top: -10px;
+    right: 12px;
+    background-color: var(--color-accent);
+    color: #fff;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+}
+
+/* ============================================================
+   Responsive Design - Media Queries
+   ============================================================ */
+
+@media (max-width: 768px) {
+    .header-inner {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .site-nav ul {
+        gap: 0.75rem 1rem;
+    }
+
+    .hero {
+        flex-direction: column;
+        padding: 1.5rem;
+        text-align: center;
+        min-height: auto;
+    }
+
+    .hero-image {
+        order: -1;
+    }
+
+    .hero-actions,
+    .hero-stats {
+        justify-content: center;
+    }
+
+    .hero-text > p {
+        max-width: none;
+    }
+
+    .form-card {
+        padding: 1.25rem;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 { font-size: 1.6rem; }
+    h2 { font-size: 1.25rem; }
+
+    .site-nav ul {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .card-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+        text-align: center;
+    }
+}

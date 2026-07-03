@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Service Booking - Vehicle Maintenance Service Booking (Static Demo)</title>
+    <link rel="stylesheet" href="css/site.css" />
+</head>
+<body>
+    <div id="demo-banner-mount"></div>
+    <div id="site-header-mount"></div>
+
+    <main class="page-content">
+        <ol class="step-indicator" aria-label="Booking workflow progress">
+            <li class="done"><span class="step-indicator-num">1</span> Register Customer</li>
+            <li class="done"><span class="step-indicator-num">2</span> Register Vehicle</li>
+            <li class="active"><span class="step-indicator-num">3</span> Book Service</li>
+            <li><span class="step-indicator-num">4</span> Track History</li>
+        </ol>
+
+        <h1>Step 3: Book a Service</h1>
+        <p>Select one of your registered vehicles, choose a service type, and pick a date
+           to book a maintenance appointment.</p>
+
+        <div class="form-card demo-form-disabled">
+            <form class="js-demo-form" novalidate>
+                <fieldset>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="VehicleID">Vehicle</label>
+                            <select id="VehicleID" name="VehicleID">
+                                <option value="">-- Select Vehicle --</option>
+                                <option value="1">A12345 - Toyota Camry (Ahmed Al Mazrouei)</option>
+                                <option value="2">B98765 - Nissan Patrol (Ahmed Al Mazrouei)</option>
+                                <option value="3">D55211 - Honda Civic (Sara Al Nuaimi)</option>
+                                <option value="4">E30044 - Ford F-150 (John Peterson)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="serviceTypeSelect">Service Type</label>
+                            <select id="serviceTypeSelect" name="ServiceType">
+                                <option value="">-- Select Service Type --</option>
+                                <option value="Oil Change">Oil Change</option>
+                                <option value="Tire Rotation">Tire Rotation</option>
+                                <option value="Brake Service">Brake Service</option>
+                                <option value="Battery Replacement">Battery Replacement</option>
+                                <option value="Full Inspection">Full Inspection</option>
+                                <option value="Air Conditioning Service">Air Conditioning Service</option>
+                            </select>
+                            <div id="serviceDetailsBox" class="service-details-box" style="display:none;" aria-live="polite"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="BookingDate">Booking Date</label>
+                            <input type="date" id="BookingDate" name="BookingDate" />
+                        </div>
+                        <div class="form-group">
+                            <label for="Notes">Notes</label>
+                            <textarea id="Notes" name="Notes" placeholder="Optional notes for the mechanic"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn">Book Service</button>
+                        <button type="reset" class="btn btn-secondary">Clear</button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+
+        <h2>All Service Bookings (Sample Data)</h2>
+        <div class="table-wrapper">
+            <table class="data-table">
+                <caption>Sample bookings - for layout preview only</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Owner</th>
+                        <th scope="col">Plate</th>
+                        <th scope="col">Service Type</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Cancel</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td><td>Ahmed Al Mazrouei</td><td>A12345</td><td>Oil Change</td><td>2026-07-05</td>
+                        <td><span class="badge Pending">Pending</span></td>
+                        <td><button class="btn btn-danger js-demo-delete">Cancel</button></td>
+                    </tr>
+                    <tr>
+                        <td>2</td><td>Ahmed Al Mazrouei</td><td>A12345</td><td>Tire Rotation</td><td>2026-06-20</td>
+                        <td><span class="badge Completed">Completed</span></td>
+                        <td><button class="btn btn-danger js-demo-delete">Cancel</button></td>
+                    </tr>
+                    <tr>
+                        <td>3</td><td>Ahmed Al Mazrouei</td><td>B98765</td><td>Full Inspection</td><td>2026-07-10</td>
+                        <td><span class="badge Confirmed">Confirmed</span></td>
+                        <td><button class="btn btn-danger js-demo-delete">Cancel</button></td>
+                    </tr>
+                    <tr>
+                        <td>4</td><td>Sara Al Nuaimi</td><td>D55211</td><td>Brake Service</td><td>2026-06-25</td>
+                        <td><span class="badge In-Progress">In Progress</span></td>
+                        <td><button class="btn btn-danger js-demo-delete">Cancel</button></td>
+                    </tr>
+                    <tr>
+                        <td>5</td><td>John Peterson</td><td>E30044</td><td>Battery Replacement</td><td>2026-07-02</td>
+                        <td><span class="badge Pending">Pending</span></td>
+                        <td><button class="btn btn-danger js-demo-delete">Cancel</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <div id="site-footer-mount"></div>
+
+    <script src="js/layout.js"></script>
+    <script src="js/demo.js"></script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+@model List<VehicleServiceBooking.Models.Vehicle>
+@using VehicleServiceBooking.Models
+@{
+    ViewData["Title"] = "Vehicle Registration";
+    ViewData["CurrentStep"] = 2;
+    var customers = ViewBag.Customers as List<Customer> ?? new List<Customer>();
+}
+
+@await Html.PartialAsync("_StepIndicator")
+
+<h1>Step 2: Vehicle Registration</h1>
+<p>Now register a vehicle under your customer profile. If you haven't registered
+   as a customer yet, do that first on the <a asp-controller="Customers" asp-action="Index">Step 1: Customer Registration</a> page.</p>
+@if (customers.Count == 0)
+{
+    <div class="status-message error">
+        No customers found yet. Please <a asp-controller="Customers" asp-action="Index" style="color:inherit;text-decoration:underline;">register a customer</a> first.
+    </div>
+}
+
+@if (TempData["StatusMessage"] != null)
+{
+    bool isError = TempData["StatusIsError"] is bool b && b;
+    <div class="status-message @(isError ? "error" : "success")">@TempData["StatusMessage"]</div>
+}
+
+<div class="form-card">
+    <form asp-controller="Vehicles" asp-action="Create" method="post" id="vehicleForm" novalidate>
+        @Html.AntiForgeryToken()
+        <div class="form-grid">
+            <div class="form-group">
+                <label for="CustomerID">Owner (Customer)</label>
+                <select id="CustomerID" name="CustomerID" required>
+                    <option value="">-- Select Customer --</option>
+                    @foreach (var customer in customers)
+                    {
+                        <option value="@customer.CustomerID">@customer.FullName</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="PlateNumber">Plate Number</label>
+                <input type="text" id="PlateNumber" name="PlateNumber" placeholder="e.g. A12345" required />
+                <span class="field-error" id="plateError"></span>
+            </div>
+            <div class="form-group">
+                <label for="Brand">Vehicle Brand</label>
+                <input type="text" id="Brand" name="Brand" placeholder="e.g. Toyota" required />
+            </div>
+            <div class="form-group">
+                <label for="Model">Vehicle Model</label>
+                <input type="text" id="Model" name="Model" placeholder="e.g. Camry" required />
+            </div>
+            <div class="form-group">
+                <label for="Year">Year</label>
+                <input type="number" id="Year" name="Year" placeholder="e.g. 2021" required />
+                <span class="field-error" id="yearError"></span>
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn">Register Vehicle</button>
+            <button type="reset" class="btn btn-secondary">Clear</button>
+        </div>
+    </form>
+</div>
+
+<h2>All Registered Vehicles</h2>
+<div class="table-wrapper">
+    <table class="data-table">
+        <caption>All registered vehicles</caption>
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Owner</th>
+                <th scope="col">Plate Number</th>
+                <th scope="col">Brand</th>
+                <th scope="col">Model</th>
+                <th scope="col">Year</th>
+                <th scope="col">Save</th>
+                <th scope="col">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Count == 0)
+            {
+                <tr><td colspan="8">No vehicles registered yet.</td></tr>
+            }
+            else
+            {
+                foreach (var vehicle in Model)
+                {
+                    <tr>
+                        <td>@vehicle.VehicleID</td>
+                        <td>@vehicle.OwnerName</td>
+                        <td>
+                            <form asp-controller="Vehicles" asp-action="Edit" method="post" id="editVehicle-@vehicle.VehicleID">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="VehicleID" value="@vehicle.VehicleID" />
+                                <input type="hidden" name="CustomerID" value="@vehicle.CustomerID" />
+                                <input type="text" name="PlateNumber" value="@vehicle.PlateNumber" required />
+                            </form>
+                        </td>
+                        <td><input type="text" name="Brand" form="editVehicle-@vehicle.VehicleID" value="@vehicle.Brand" required /></td>
+                        <td><input type="text" name="Model" form="editVehicle-@vehicle.VehicleID" value="@vehicle.Model" required /></td>
+                        <td><input type="number" name="Year" form="editVehicle-@vehicle.VehicleID" value="@vehicle.Year" required /></td>
+                        <td><button type="submit" form="editVehicle-@vehicle.VehicleID" class="btn btn-secondary">Save</button></td>
+                        <td>
+                            <form asp-controller="Vehicles" asp-action="Delete" method="post" class="js-delete-form">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="vehicleId" value="@vehicle.VehicleID" />
+                                <button type="submit" class="btn btn-danger js-confirm-delete"
+                                        data-confirm-message="Delete this vehicle and all its service bookings?">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

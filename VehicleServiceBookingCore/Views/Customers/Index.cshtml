@@ -1,0 +1,95 @@
+@model List<VehicleServiceBooking.Models.Customer>
+@{
+    ViewData["Title"] = "Customer Registration";
+    ViewData["CurrentStep"] = 1;
+}
+
+@await Html.PartialAsync("_StepIndicator")
+
+<h1>Step 1: Customer Registration</h1>
+<p>First, create your customer profile below. Once registered, you'll be able
+   to add a vehicle (Step 2) and then book a service (Step 3).</p>
+
+@if (TempData["StatusMessage"] != null)
+{
+    bool isError = TempData["StatusIsError"] is bool b && b;
+    <div class="status-message @(isError ? "error" : "success")">@TempData["StatusMessage"]</div>
+}
+
+<div class="form-card">
+    <form asp-controller="Customers" asp-action="Create" method="post" id="customerForm" novalidate>
+        @Html.AntiForgeryToken()
+        <div class="form-grid">
+            <div class="form-group">
+                <label for="FullName">Full Name</label>
+                <input type="text" id="FullName" name="FullName" class="js-required" placeholder="e.g. Ahmed Al Mazrouei" required />
+                <span class="field-error" id="fullNameError"></span>
+            </div>
+            <div class="form-group">
+                <label for="Email">Email</label>
+                <input type="email" id="Email" name="Email" placeholder="name@example.com" required />
+                <span class="field-error" id="emailError"></span>
+            </div>
+            <div class="form-group">
+                <label for="Phone">Phone</label>
+                <input type="text" id="Phone" name="Phone" placeholder="e.g. 0501234567" required />
+                <span class="field-error" id="phoneError"></span>
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn">Register Customer</button>
+            <button type="reset" class="btn btn-secondary">Clear</button>
+        </div>
+    </form>
+</div>
+
+<h2>Registered Customers</h2>
+<div class="table-wrapper">
+    <table class="data-table">
+        <caption>All registered customers</caption>
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Full Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Save</th>
+                <th scope="col">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Count == 0)
+            {
+                <tr><td colspan="6">No customers registered yet.</td></tr>
+            }
+            else
+            {
+                foreach (var customer in Model)
+                {
+                    <tr>
+                        <td>@customer.CustomerID</td>
+                        <td>
+                            <form asp-controller="Customers" asp-action="Edit" method="post" id="editForm-@customer.CustomerID">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="CustomerID" value="@customer.CustomerID" />
+                                <input type="text" name="FullName" value="@customer.FullName" required />
+                            </form>
+                        </td>
+                        <td><input type="email" name="Email" form="editForm-@customer.CustomerID" value="@customer.Email" required /></td>
+                        <td><input type="text" name="Phone" form="editForm-@customer.CustomerID" value="@customer.Phone" required /></td>
+                        <td><button type="submit" form="editForm-@customer.CustomerID" class="btn btn-secondary">Save</button></td>
+                        <td>
+                            <form asp-controller="Customers" asp-action="Delete" method="post" class="js-delete-form">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="customerId" value="@customer.CustomerID" />
+                                <button type="submit" class="btn btn-danger js-confirm-delete"
+                                        data-confirm-message="Delete this customer and all related vehicles/bookings?">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

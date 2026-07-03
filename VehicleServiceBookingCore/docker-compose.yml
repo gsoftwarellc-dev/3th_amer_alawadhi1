@@ -1,0 +1,14 @@
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: vehicleservice-sqlserver
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "YourStrong!Passw0rd"
+    ports:
+      - "14330:1433"
+    volumes:
+      - vehicleservice-sqldata:/var/opt/mssql
+
+volumes:
+  vehicleservice-sqldata:

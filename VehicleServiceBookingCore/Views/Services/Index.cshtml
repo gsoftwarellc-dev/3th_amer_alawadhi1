@@ -1,0 +1,50 @@
+@{
+    ViewData["Title"] = "Services";
+
+    var services = new (string Icon, string Name, string Description, string Duration, int Price)[]
+    {
+        ("\U0001F6E2️", "Oil Change", "Full synthetic or conventional oil change with filter replacement.", "30 minutes", 120),
+        ("\U0001F6DE", "Tire Rotation", "Rotation, balancing, and pressure check for all four tires.", "30 minutes", 80),
+        ("\U0001F6D1", "Brake Service", "Brake pad and rotor inspection, replacement, and fluid top-up.", "1–2 hours", 250),
+        ("\U0001F50B", "Battery Replacement", "Battery testing, replacement, and charging system check.", "20 minutes", 300),
+        ("\U0001F50D", "Full Inspection", "Comprehensive multi-point inspection covering engine, brakes, suspension, and electrical systems.", "1 hour", 150),
+        ("❄️", "Air Conditioning Service", "AC performance check, refrigerant recharge, and filter cleaning.", "45 minutes", 180),
+    };
+}
+
+<section class="page-hero" aria-label="Services introduction">
+    <p class="hero-eyebrow">What We Offer</p>
+    <h1>Our Services</h1>
+</section>
+
+<h2>Service Price Guide</h2>
+<div class="table-wrapper">
+    <table class="data-table">
+        <caption>Estimated pricing per service type</caption>
+        <thead>
+            <tr>
+                <th scope="col">Service Type</th>
+                <th scope="col">Estimated Duration</th>
+                <th scope="col">Starting Price (AED)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var service in services)
+            {
+                <tr>
+                    <td>@service.Icon &nbsp; @service.Name</td>
+                    <td>@service.Duration</td>
+                    <td>AED @service.Price</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="services-cta-banner">
+    <div>
+        <h2>Ready to book your service?</h2>
+        <p>Register your vehicle and choose a service type in just a couple of minutes.</p>
+    </div>
+    <a class="btn" asp-controller="Bookings" asp-action="Index">Book One of These Services &rarr;</a>
+</div>

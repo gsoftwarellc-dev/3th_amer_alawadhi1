@@ -1,0 +1,21 @@
+@{
+    int currentStep = ViewData["CurrentStep"] as int? ?? 1;
+    var steps = new (string Label, string Controller)[]
+    {
+        ("Register Customer", "Customers"),
+        ("Register Vehicle", "Vehicles"),
+        ("Book Service", "Bookings"),
+        ("Track History", "ServiceHistory")
+    };
+}
+<ol class="step-indicator" aria-label="Booking workflow progress">
+    @for (int i = 0; i < steps.Length; i++)
+    {
+        int stepNumber = i + 1;
+        string cssClass = stepNumber == currentStep ? "active" : (stepNumber < currentStep ? "done" : "");
+        <li class="@cssClass">
+            <span class="step-indicator-num">@stepNumber</span>
+            <a asp-controller="@steps[i].Controller" asp-action="Index" style="color:inherit;text-decoration:none;">@steps[i].Label</a>
+        </li>
+    }
+</ol>
