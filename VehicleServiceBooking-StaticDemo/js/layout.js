@@ -1,7 +1,6 @@
 // ============================================================
-// Static demo shell: injects the shared header/nav/footer and
-// the "demo mode" notice banner on every page.
-// This site has no backend/database - see index.html for why.
+// Static demo shell: injects the shared header/nav/footer on
+// every page, matching the real application's layout.
 // ============================================================
 
 (function () {
@@ -33,23 +32,12 @@
         '  <p class="footer-credit">Made by Amer Alawadhi &mdash; ID: 3087</p>' +
         '</footer>';
 
-    var DEMO_BANNER_HTML =
-        '<div class="demo-banner">' +
-        '  <strong>Static Demo</strong> &mdash; this preview has no live database. ' +
-        '  Forms on this page are for layout preview only and will not save data. ' +
-        '  <a href="https://github.com/gsoftwarellc-dev/3th_amer_alawadhi1" target="_blank" rel="noopener">' +
-        '    View the full working application (ASP.NET Core + SQL Server) on GitHub &rarr;' +
-        '  </a>' +
-        '</div>';
-
     document.addEventListener("DOMContentLoaded", function () {
         var headerMount = document.getElementById("site-header-mount");
         var footerMount = document.getElementById("site-footer-mount");
-        var bannerMount = document.getElementById("demo-banner-mount");
 
         if (headerMount) headerMount.outerHTML = HEADER_HTML;
         if (footerMount) footerMount.outerHTML = FOOTER_HTML;
-        if (bannerMount) bannerMount.outerHTML = DEMO_BANNER_HTML;
 
         // Highlight the current page's nav link
         var currentPage = window.location.pathname.split("/").pop() || "index.html";
