@@ -26,6 +26,11 @@ MARKER_FILE="$SCRIPT_DIR/.setup-complete"
 
 cd "$SCRIPT_DIR"
 
+# Clear the macOS quarantine flag that gets applied to files downloaded
+# from the internet (zip, AirDrop, email, etc.) - without this, macOS
+# Gatekeeper can pop up a "Not Opened" warning for the compiled app.
+xattr -dr com.apple.quarantine "$SCRIPT_DIR" >/dev/null 2>&1
+
 echo "============================================================"
 echo " Vehicle Maintenance Service Booking System"
 echo "============================================================"
