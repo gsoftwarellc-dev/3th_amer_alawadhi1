@@ -176,12 +176,14 @@ echo "============================================================"
 echo ""
 
 RUN_LOG="$(mktemp)"
-dotnet run > >(tee "$RUN_LOG") &
+
+set +e
+dotnet run 2>&1 | tee "$RUN_LOG" &
 DOTNET_PID=$!
 
 (
     for i in $(seq 1 60); do
-        URL=$(grep -o 'http://[^[:space:]]*' "$RUN_LOG" | head -1)
+        URL=$(grep -o 'http://[0-9a-zA-Z.:-]*[0-9]' "$RUN_LOG" | head -1)
         if [[ -n "$URL" ]]; then
             echo ""
             echo "============================================================"
@@ -190,9 +192,9 @@ DOTNET_PID=$!
             echo ""
             sleep 1
             if [[ -e "/Applications/Google Chrome.app" ]]; then
-                open -a "Google Chrome" "$URL" 2>/dev/null
+                open -a "Google Chrome" "$URL" >/dev/null 2>&1
             else
-                open "$URL" 2>/dev/null
+                open "$URL" >/dev/null 2>&1
             fi
             if [[ $? -ne 0 ]]; then
                 echo "Could not open the browser automatically - click or copy the URL above."
@@ -202,6 +204,8 @@ DOTNET_PID=$!
         sleep 1
     done
 ) &
+WATCHER_PID=$!
 
 wait "$DOTNET_PID"
+kill "$WATCHER_PID" >/dev/null 2>&1
 rm -f "$RUN_LOG"
