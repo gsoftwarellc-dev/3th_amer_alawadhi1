@@ -165,15 +165,31 @@ else
 fi
 
 # ------------------------------------------------------------
-# 5) Run the website
+# 5) Run the website (and open it in the browser automatically)
 # ------------------------------------------------------------
 echo "[5/5] Starting the website..."
 echo ""
 echo "============================================================"
-echo " Once you see 'Now listening on: http://localhost:....'"
-echo " open that address in Chrome."
+echo " Your browser will open automatically once the site is ready."
 echo " Press Ctrl+C here to stop the website."
 echo "============================================================"
 echo ""
 
-dotnet run
+RUN_LOG="$(mktemp)"
+dotnet run > >(tee "$RUN_LOG") &
+DOTNET_PID=$!
+
+(
+    for i in $(seq 1 60); do
+        URL=$(grep -o 'http://[^[:space:]]*' "$RUN_LOG" | head -1)
+        if [[ -n "$URL" ]]; then
+            sleep 1
+            open "$URL"
+            break
+        fi
+        sleep 1
+    done
+) &
+
+wait "$DOTNET_PID"
+rm -f "$RUN_LOG"
