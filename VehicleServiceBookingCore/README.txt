@@ -77,9 +77,48 @@ VehicleServiceBookingCore/
     css/site.css
     js/validation.js
     images/hero-car.svg
+  Screenshots/                       <- add screenshots of the running app here
+  Report/Project_Report.md           <- full written report
+  Presentation/                      <- add presentation slides here
   Program.cs, appsettings.json
   docker-compose.yml                 <- optional, if you have Docker Compose
   VehicleServiceBooking.csproj
+
+------------------------------------------------------------------------
+FOLDER STRUCTURE MAPPING (vs. the assignment's suggested layout)
+------------------------------------------------------------------------
+The assignment's suggested folder structure (Website/Pages, Website/CSS,
+Website/JS, Website/Images, Website/App_Code or Controllers) describes a
+classic ASP.NET Web Forms layout. This project uses ASP.NET Core MVC
+instead - an option explicitly permitted by the assignment ("ASP.NET Web
+Forms, ASP.NET MVC, or ASP.NET Core MVC") - so the framework's own
+required folder names are used instead of the Web Forms-specific ones.
+ASP.NET Core will not run correctly if these folders are renamed, since
+routing, view discovery, and static file serving all depend on them.
+
+    Assignment's suggested name          This project's equivalent
+    ------------------------------       ------------------------------
+    Website/Pages/                       Views/            (Razor views)
+    Website/CSS/                         wwwroot/css/
+    Website/JS/                          wwwroot/js/
+    Website/Images/                      wwwroot/images/
+    Website/App_Code or Controllers/     Controllers/       (explicitly
+                                                              named as an
+                                                              acceptable
+                                                              alternative
+                                                              in the brief)
+    Database/database_script.sql         Database/database_script.sql  (same)
+    Screenshots/                         Screenshots/                   (same)
+    Report/                              Report/                        (same)
+    Presentation/                        Presentation/                  (same)
+    README.txt                          README.txt                     (same)
+
+A second, literal ASP.NET Web Forms implementation of this same project
+also exists in the sibling VehicleServiceBooking/ folder, which follows
+the assignment's suggested structure exactly (Website/Pages, Website/CSS,
+Website/JS, Website/Images, Website/App_Code). It requires Windows +
+Visual Studio + SQL Server to run and was not used as the primary
+submission because it cannot be built or tested on this machine.
 
 ------------------------------------------------------------------------
 WHAT setup.sh ACTUALLY DOES (manual equivalent, if you'd rather run it
