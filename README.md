@@ -6,7 +6,7 @@ booking, and service history/reports.
 
 **Student:** Amer Alawadhi — **ID:** 3087
 
-This repository contains three related projects:
+This repository contains two related projects:
 
 ## [`VehicleServiceBookingCore/`](VehicleServiceBookingCore/) — the real, working application
 
@@ -19,15 +19,6 @@ Windows, Linux) via the .NET CLI and Docker.
 — or from that folder, run `./start.sh` for a one-command setup + launch.
 
 Full write-up: [`VehicleServiceBookingCore/Report/Project_Report.md`](VehicleServiceBookingCore/Report/Project_Report.md)
-
-## [`VehicleServiceBooking-StaticDemo/`](VehicleServiceBooking-StaticDemo/) — static preview for Vercel
-
-A plain HTML/CSS/JS recreation of the same pages using hardcoded sample data,
-with no backend or database. Built specifically because Vercel does not run
-ASP.NET Core applications or host SQL Server — this is a visual-only preview
-deployable as a static site. See its own
-[README](VehicleServiceBooking-StaticDemo/README.md) for details and
-deployment instructions.
 
 ## [`VehicleServiceBooking/`](VehicleServiceBooking/) — original ASP.NET Web Forms version
 
