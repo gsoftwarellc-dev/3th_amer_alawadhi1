@@ -153,13 +153,25 @@ if [[ "$SQL_READY" -ne 1 ]]; then
     exit 1
 fi
 
-if [[ ! -f "$MARKER_FILE" ]]; then
-    echo "      Loading database schema and sample data (first run only)..."
+DB_EXISTS=0
+if docker exec "$CONTAINER_NAME" /opt/mssql-tools18/bin/sqlcmd \
+    -S localhost -U sa -P "$SA_PASSWORD" -C -h -1 \
+    -Q "SET NOCOUNT ON; SELECT DB_ID('VehicleServiceDB')" 2>/dev/null | grep -qE '^[0-9]+$'; then
+    DB_EXISTS=1
+fi
+
+if [[ ! -f "$MARKER_FILE" || "$DB_EXISTS" -ne 1 ]]; then
+    echo "      Loading database schema and sample data..."
     docker cp "$SCRIPT_DIR/../Database/database_script.sql" "$CONTAINER_NAME:/tmp/database_script.sql"
-    docker exec "$CONTAINER_NAME" /opt/mssql-tools18/bin/sqlcmd \
-        -S localhost -U sa -P "$SA_PASSWORD" -C -i /tmp/database_script.sql
-    touch "$MARKER_FILE"
-    echo "      Database ready."
+    if docker exec "$CONTAINER_NAME" /opt/mssql-tools18/bin/sqlcmd \
+        -S localhost -U sa -P "$SA_PASSWORD" -C -b -i /tmp/database_script.sql; then
+        touch "$MARKER_FILE"
+        echo "      Database ready."
+    else
+        echo ""
+        echo "ERROR: Failed to create the database. Try running ./start.sh again."
+        exit 1
+    fi
 else
     echo "      Database already set up from a previous run - skipping (your data is preserved)."
 fi
