@@ -48,7 +48,7 @@ else
 fi
 
 # ------------------------------------------------------------
-# 2) Docker Desktop
+# 2) Docker (Docker Desktop, or Colima if that's what's installed)
 # ------------------------------------------------------------
 echo "[2/5] Checking for Docker..."
 if ! command -v docker >/dev/null 2>&1; then
@@ -61,21 +61,32 @@ else
 fi
 
 if ! docker info >/dev/null 2>&1; then
-    echo "      Docker isn't running yet - starting Docker Desktop..."
-    open -a Docker
-    echo "      Waiting for Docker to finish starting (this can take a minute the first time)..."
-    for i in $(seq 1 60); do
-        if docker info >/dev/null 2>&1; then
-            break
-        fi
-        sleep 2
-    done
+    if command -v colima >/dev/null 2>&1; then
+        echo "      Docker isn't running yet - starting Colima..."
+        colima start
+    elif [[ -e "/Applications/Docker.app" ]]; then
+        echo "      Docker isn't running yet - starting Docker Desktop..."
+        open -a Docker
+        echo "      Waiting for Docker to finish starting (this can take a minute the first time)..."
+        for i in $(seq 1 60); do
+            if docker info >/dev/null 2>&1; then
+                break
+            fi
+            sleep 2
+        done
+    else
+        echo "      Docker isn't running and no Docker Desktop app or Colima was found."
+        echo "      Installing Colima (a lightweight Docker runtime for macOS) via Homebrew..."
+        brew install colima docker
+        colima start
+    fi
 fi
 
 if ! docker info >/dev/null 2>&1; then
     echo ""
-    echo "ERROR: Docker still isn't responding. Please open Docker Desktop manually,"
-    echo "wait for the whale icon in the menu bar to stop animating, then run ./start.sh again."
+    echo "ERROR: Docker still isn't responding. If you use Docker Desktop, open it manually"
+    echo "and wait for the whale icon in the menu bar to stop animating. If you use Colima,"
+    echo "try running 'colima start' manually. Then run ./start.sh again."
     exit 1
 fi
 echo "      Docker is ready."
@@ -124,13 +135,23 @@ else
         mcr.microsoft.com/mssql/server:2022-latest >/dev/null
 fi
 
-echo "      Waiting for SQL Server to be ready..."
+echo "      Waiting for SQL Server to accept connections..."
+SQL_READY=0
 for i in $(seq 1 40); do
-    if docker logs "$CONTAINER_NAME" 2>&1 | grep -q "Recovery is complete"; then
+    if docker exec "$CONTAINER_NAME" /opt/mssql-tools18/bin/sqlcmd \
+        -S localhost -U sa -P "$SA_PASSWORD" -C -Q "SELECT 1" >/dev/null 2>&1; then
+        SQL_READY=1
         break
     fi
-    sleep 2
+    sleep 3
 done
+
+if [[ "$SQL_READY" -ne 1 ]]; then
+    echo ""
+    echo "ERROR: SQL Server did not become ready in time. Try running ./start.sh again -"
+    echo "the container is already created, so it should just need a bit more time to start."
+    exit 1
+fi
 
 if [[ ! -f "$MARKER_FILE" ]]; then
     echo "      Loading database schema and sample data (first run only)..."
