@@ -223,10 +223,14 @@ DOTNET_PID=$!
             sleep 1
             if [[ -e "/Applications/Google Chrome.app" ]]; then
                 open -a "Google Chrome" "$URL" >/dev/null 2>&1
+                OPEN_STATUS=$?
+                sleep 0.5
+                osascript -e 'tell application "Google Chrome" to activate' >/dev/null 2>&1
             else
                 open "$URL" >/dev/null 2>&1
+                OPEN_STATUS=$?
             fi
-            if [[ $? -ne 0 ]]; then
+            if [[ "$OPEN_STATUS" -ne 0 ]]; then
                 echo "Could not open the browser automatically - click or copy the URL above."
             fi
             break
