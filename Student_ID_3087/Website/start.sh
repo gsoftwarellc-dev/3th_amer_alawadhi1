@@ -183,6 +183,11 @@ DOTNET_PID=$!
     for i in $(seq 1 60); do
         URL=$(grep -o 'http://[^[:space:]]*' "$RUN_LOG" | head -1)
         if [[ -n "$URL" ]]; then
+            echo ""
+            echo "============================================================"
+            echo " Website URL: $URL"
+            echo "============================================================"
+            echo ""
             sleep 1
             if [[ -e "/Applications/Google Chrome.app" ]]; then
                 open -a "Google Chrome" "$URL" 2>/dev/null
@@ -190,8 +195,7 @@ DOTNET_PID=$!
                 open "$URL" 2>/dev/null
             fi
             if [[ $? -ne 0 ]]; then
-                echo ""
-                echo "Could not open the browser automatically. Open this URL manually: $URL"
+                echo "Could not open the browser automatically - click or copy the URL above."
             fi
             break
         fi
