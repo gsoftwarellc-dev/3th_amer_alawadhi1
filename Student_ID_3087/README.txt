@@ -1,13 +1,36 @@
 ========================================================================
+ Student ID: 3087
  Vehicle Maintenance Service Booking System
  ASP.NET Core MVC (C#) + SQL Server (Docker)
  Cross-platform build - runs on macOS, Windows, and Linux
 ========================================================================
 
+FOLDER STRUCTURE
+------------------------------------------------------------------------
+Student_ID_3087/
+  Website/            <- the application source code (see below)
+  Database/
+    database_script.sql        <- full schema + sample data + stored procedures
+  Screenshots/                 <- screenshots of the running application
+  Report/
+    Project_Report.md          <- full written report
+  Presentation/                <- presentation slides
+  README.txt                   <- this file
+
+This mirrors the assignment's suggested folder structure. The one
+difference is what sits inside Website/: this project uses ASP.NET Core
+MVC (an option explicitly permitted by the assignment, alongside ASP.NET
+Web Forms and ASP.NET MVC), so Website/ uses ASP.NET Core's own required
+folder names instead of the Web Forms-specific ones named in the
+suggested layout. See "FOLDER STRUCTURE MAPPING" further down for the
+exact correspondence.
+
+------------------------------------------------------------------------
 QUICK START - ONE COMMAND (macOS, nothing pre-installed required)
 ------------------------------------------------------------------------
-Open a terminal in this project folder (in VS Code: Terminal > New Terminal,
-or in Finder: right-click the folder > "New Terminal at Folder") and run:
+Open a terminal inside the Website/ folder (in VS Code: open Website/ as
+the workspace folder, then Terminal > New Terminal; or in Finder:
+right-click Website/ > "New Terminal at Folder") and run:
 
      chmod +x start.sh
      ./start.sh
@@ -33,19 +56,19 @@ Once it prints something like:
 open that URL in Google Chrome. Press Ctrl+C in the terminal to stop the
 website when you're done.
 
-(There's also a setup.sh script that does steps 1-4 without launching the
-site, and without installing Docker Desktop automatically - useful if you
-already have Docker installed and just want more control. Most people
-should just use start.sh.)
+(There's also a setup.sh script in Website/ that does the setup steps
+without launching the site, and without installing Docker Desktop
+automatically - useful if you already have Docker installed and just
+want more control. Most people should just use start.sh.)
 
 In VS Code, you can also install the "C#" extension (by Microsoft) for
 IntelliSense and to run/debug with the F5 key instead of the terminal -
 see the "RUNNING/DEBUGGING FROM VS CODE" section further down.
 
 ------------------------------------------------------------------------
-PROJECT STRUCTURE
+WEBSITE/ FOLDER CONTENTS
 ------------------------------------------------------------------------
-VehicleServiceBookingCore/
+Website/
   start.sh                            <- run this (see Quick Start above)
   setup.sh                            <- alternative, no auto Docker install / no auto-launch
   Controllers/
@@ -71,18 +94,17 @@ VehicleServiceBookingCore/
     CustomerRepository.cs
     VehicleRepository.cs
     BookingRepository.cs
-  Database/
-    database_script.sql              <- full schema + sample data + stored procedures
   wwwroot/
     css/site.css
     js/validation.js
     images/hero-car.svg
-  Screenshots/                       <- add screenshots of the running app here
-  Report/Project_Report.md           <- full written report
-  Presentation/                      <- add presentation slides here
   Program.cs, appsettings.json
   docker-compose.yml                 <- optional, if you have Docker Compose
   VehicleServiceBooking.csproj
+
+Note: Website/ reads the database script from ../Database/database_script.sql
+(one level up, at the Student_ID_3087/ root) - start.sh and setup.sh are
+already configured for this path.
 
 ------------------------------------------------------------------------
 FOLDER STRUCTURE MAPPING (vs. the assignment's suggested layout)
@@ -98,27 +120,28 @@ routing, view discovery, and static file serving all depend on them.
 
     Assignment's suggested name          This project's equivalent
     ------------------------------       ------------------------------
-    Website/Pages/                       Views/            (Razor views)
-    Website/CSS/                         wwwroot/css/
-    Website/JS/                          wwwroot/js/
-    Website/Images/                      wwwroot/images/
-    Website/App_Code or Controllers/     Controllers/       (explicitly
+    Website/Pages/                       Website/Views/     (Razor views)
+    Website/CSS/                         Website/wwwroot/css/
+    Website/JS/                          Website/wwwroot/js/
+    Website/Images/                      Website/wwwroot/images/
+    Website/App_Code or Controllers/     Website/Controllers/ (explicitly
                                                               named as an
                                                               acceptable
                                                               alternative
                                                               in the brief)
-    Database/database_script.sql         Database/database_script.sql  (same)
-    Screenshots/                         Screenshots/                   (same)
-    Report/                              Report/                        (same)
-    Presentation/                        Presentation/                  (same)
-    README.txt                          README.txt                     (same)
+    Database/database_script.sql         Database/database_script.sql (same)
+    Screenshots/                         Screenshots/                  (same)
+    Report/                              Report/                       (same)
+    Presentation/                        Presentation/                 (same)
+    README.txt                          README.txt                    (same)
 
 A second, literal ASP.NET Web Forms implementation of this same project
-also exists in the sibling VehicleServiceBooking/ folder, which follows
-the assignment's suggested structure exactly (Website/Pages, Website/CSS,
-Website/JS, Website/Images, Website/App_Code). It requires Windows +
-Visual Studio + SQL Server to run and was not used as the primary
-submission because it cannot be built or tested on this machine.
+also exists outside this submission folder (VehicleServiceBooking/,
+alongside Student_ID_3087/), which follows the assignment's suggested
+structure exactly (Website/Pages, Website/CSS, Website/JS, Website/Images,
+Website/App_Code). It requires Windows + Visual Studio + SQL Server to
+run and was not used as the primary submission because it cannot be
+built or tested on this machine.
 
 ------------------------------------------------------------------------
 WHAT setup.sh ACTUALLY DOES (manual equivalent, if you'd rather run it
@@ -136,7 +159,7 @@ step by step or the script fails partway through)
    Wait about 20-30 seconds for SQL Server to finish starting, then check:
      docker logs vehicleservice-sqlserver | grep "Recovery is complete"
 
-2) CREATE THE DATABASE
+2) CREATE THE DATABASE (run from the Student_ID_3087/ root, or adjust the path)
      docker cp Database/database_script.sql vehicleservice-sqlserver:/tmp/database_script.sql
      docker exec vehicleservice-sqlserver /opt/mssql-tools18/bin/sqlcmd \
        -S localhost -U sa -P 'YourStrong!Passw0rd' -C -i /tmp/database_script.sql
@@ -150,10 +173,10 @@ step by step or the script fails partway through)
      export PATH="$HOME/.dotnet:$PATH"
    Add that export line to ~/.zshrc so it persists across terminal sessions.
 
-4) RUN THE WEBSITE
+4) RUN THE WEBSITE (from inside Website/)
      dotnet run
 
-   The connection string in appsettings.json already points to
+   The connection string in Website/appsettings.json already points to
    "Server=127.0.0.1,14330;Database=VehicleServiceDB;User Id=sa;Password=YourStrong!Passw0rd;..."
    which matches the docker run command above. If you change the SQL
    Server port or password, update appsettings.json to match.
@@ -183,12 +206,13 @@ RUNNING/DEBUGGING FROM VS CODE INSTEAD OF THE TERMINAL
 ------------------------------------------------------------------------
    - Install the "C#" extension (ms-dotnettools.csharp) from the Extensions
      panel if VS Code doesn't prompt you automatically.
-   - Open the VehicleServiceBookingCore folder in VS Code.
+   - Open the Website/ folder in VS Code (not Student_ID_3087/ itself).
    - Press F5, or use the Run and Debug panel, and choose ".NET Core Launch".
      VS Code will build and run the project and can attach a debugger with
      breakpoints, which `dotnet run` in a plain terminal can't do.
    - Docker/SQL Server still need to be running first (steps 1-2 above, or
-     just run ./setup.sh once) - VS Code doesn't manage that automatically.
+     just run ./setup.sh once from inside Website/) - VS Code doesn't
+     manage that automatically.
 
 ------------------------------------------------------------------------
 HOW TO RUN ON WINDOWS (equivalent steps)
@@ -197,26 +221,26 @@ HOW TO RUN ON WINDOWS (equivalent steps)
    - Install Docker Desktop, or install SQL Server Express/Developer edition
      directly and skip the container entirely.
    - If using a local SQL Server instance instead of Docker, update the
-     connection string in appsettings.json accordingly, e.g.:
+     connection string in Website/appsettings.json accordingly, e.g.:
        "Server=.\\SQLEXPRESS;Database=VehicleServiceDB;Integrated Security=True;TrustServerCertificate=True;"
-   - Run the database_script.sql in SSMS.
-   - From the project folder: `dotnet run`, or open the folder in Visual
+   - Run Database/database_script.sql in SSMS.
+   - From the Website/ folder: `dotnet run`, or open the folder in Visual
      Studio / VS Code and run from there.
 
 ------------------------------------------------------------------------
 KEY TECHNICAL NOTES
 ------------------------------------------------------------------------
 - All database access uses stored procedures called through parameterized
-  SqlCommand objects (see Data/DbHelper.cs and *Repository.cs). No SQL
-  string concatenation of user input is used anywhere.
+  SqlCommand objects (see Website/Data/DbHelper.cs and *Repository.cs).
+  No SQL string concatenation of user input is used anywhere.
 - Server-side validation is implemented in each controller (email regex,
   plate number regex, year range, required fields) in addition to
   DataAnnotations on the models.
 - Client-side validation and interactivity is implemented in
-  wwwroot/js/validation.js: regular expressions for email/plate/year, DOM
-  manipulation (innerHTML, textContent), addEventListener-based event
+  Website/wwwroot/js/validation.js: regular expressions for email/plate/year,
+  DOM manipulation (innerHTML, textContent), addEventListener-based event
   handling, selection statements, and loops.
-- CSS (wwwroot/css/site.css) implements an external stylesheet with
+- CSS (Website/wwwroot/css/site.css) implements an external stylesheet with
   typography, box model styling, float/position usage, Flexbox
   (header/nav, hero, filter bar), CSS Grid (card grids, form grids), and
   media queries for responsive desktop/mobile layouts.

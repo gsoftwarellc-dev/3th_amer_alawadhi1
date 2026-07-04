@@ -155,7 +155,7 @@ fi
 
 if [[ ! -f "$MARKER_FILE" ]]; then
     echo "      Loading database schema and sample data (first run only)..."
-    docker cp "$SCRIPT_DIR/Database/database_script.sql" "$CONTAINER_NAME:/tmp/database_script.sql"
+    docker cp "$SCRIPT_DIR/../Database/database_script.sql" "$CONTAINER_NAME:/tmp/database_script.sql"
     docker exec "$CONTAINER_NAME" /opt/mssql-tools18/bin/sqlcmd \
         -S localhost -U sa -P "$SA_PASSWORD" -C -i /tmp/database_script.sql
     touch "$MARKER_FILE"

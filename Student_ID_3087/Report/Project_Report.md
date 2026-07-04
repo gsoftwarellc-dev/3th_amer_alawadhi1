@@ -263,18 +263,21 @@ reviewed as source code:
 ## 11. Project Structure (Deliverable Layout)
 
 ```
-VehicleServiceBookingCore/
-  start.sh                     One-command setup + launch script
-  setup.sh                     Manual setup script (no auto Docker install)
-  Controllers/                 6 MVC controllers
-  Models/                      Customer, Vehicle, ServiceBooking, view models
-  Views/                       Razor views (.cshtml), one folder per controller
-  Data/                        ADO.NET data access layer (parameterized only)
-  Database/database_script.sql Full schema, sample data, stored procedures
-  wwwroot/                     css/site.css, js/validation.js, images/
-  Program.cs, appsettings.json Application entry point and configuration
-  README.txt                   Full setup and run instructions
-  Report/Project_Report.md     This report
+Student_ID_3087/
+  Website/
+    start.sh                     One-command setup + launch script
+    setup.sh                     Manual setup script (no auto Docker install)
+    Controllers/                 6 MVC controllers
+    Models/                      Customer, Vehicle, ServiceBooking, view models
+    Views/                       Razor views (.cshtml), one folder per controller
+    Data/                        ADO.NET data access layer (parameterized only)
+    wwwroot/                     css/site.css, js/validation.js, images/
+    Program.cs, appsettings.json Application entry point and configuration
+  Database/database_script.sql   Full schema, sample data, stored procedures
+  Screenshots/                   Screenshots of the running application
+  Report/Project_Report.md       This report
+  Presentation/                  Presentation slides
+  README.txt                     Full setup and run instructions
 ```
 
 ---

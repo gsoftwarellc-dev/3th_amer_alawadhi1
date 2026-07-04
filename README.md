@@ -8,17 +8,22 @@ booking, and service history/reports.
 
 This repository contains two related projects:
 
-## [`VehicleServiceBookingCore/`](VehicleServiceBookingCore/) — the real, working application
+## [`Student_ID_3087/`](Student_ID_3087/) — the real, working application (submission folder)
 
 ASP.NET Core MVC (C#) + SQL Server, with full Create/Read/Update/Delete
 functionality backed by parameterized stored procedures, client- and
 server-side validation, and four reports. Runs cross-platform (macOS,
 Windows, Linux) via the .NET CLI and Docker.
 
-**Run it:** see [`VehicleServiceBookingCore/README.txt`](VehicleServiceBookingCore/README.txt)
-— or from that folder, run `./start.sh` for a one-command setup + launch.
+Organized to mirror the assignment's suggested submission layout:
+`Student_ID_3087/Website/` (the app), `Database/database_script.sql`,
+`Screenshots/`, `Report/`, `Presentation/`, and `README.txt`.
 
-Full write-up: [`VehicleServiceBookingCore/Report/Project_Report.md`](VehicleServiceBookingCore/Report/Project_Report.md)
+**Run it:** see [`Student_ID_3087/README.txt`](Student_ID_3087/README.txt)
+— or from `Student_ID_3087/Website/`, run `./start.sh` for a one-command
+setup + launch.
+
+Full write-up: [`Student_ID_3087/Report/Project_Report.md`](Student_ID_3087/Report/Project_Report.md)
 
 ## [`VehicleServiceBooking/`](VehicleServiceBooking/) — original ASP.NET Web Forms version
 
