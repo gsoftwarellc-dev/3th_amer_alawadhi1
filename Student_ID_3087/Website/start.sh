@@ -206,6 +206,9 @@ DOTNET_PID=$!
 ) &
 WATCHER_PID=$!
 
-wait "$DOTNET_PID"
-kill "$WATCHER_PID" >/dev/null 2>&1
+wait "$DOTNET_PID" 2>/dev/null
+if kill -0 "$WATCHER_PID" >/dev/null 2>&1; then
+    kill "$WATCHER_PID" >/dev/null 2>&1
+    wait "$WATCHER_PID" >/dev/null 2>&1
+fi
 rm -f "$RUN_LOG"
