@@ -184,6 +184,19 @@ fi
 # ------------------------------------------------------------
 # 5) Run the website (and open it in the browser automatically)
 # ------------------------------------------------------------
+
+# The app always listens on port 5188 (see Properties/launchSettings.json).
+# If a previous run is still holding that port (e.g. a terminal tab was
+# left open, or the last run didn't shut down cleanly), stop it first so
+# the new instance doesn't fail with a "port already in use" error.
+APP_PORT=5188
+STALE_PID=$(lsof -tiTCP:"$APP_PORT" -sTCP:LISTEN 2>/dev/null || true)
+if [[ -n "$STALE_PID" ]]; then
+    echo "Stopping a previous instance of this website that was still running on port $APP_PORT..."
+    kill $STALE_PID >/dev/null 2>&1
+    sleep 2
+fi
+
 echo "[5/5] Starting the website..."
 echo ""
 echo "============================================================"
@@ -200,7 +213,7 @@ DOTNET_PID=$!
 
 (
     for i in $(seq 1 60); do
-        URL=$(grep -o 'http://[0-9a-zA-Z.:-]*[0-9]' "$RUN_LOG" | head -1)
+        URL=$(grep -o 'Now listening on: http://[0-9a-zA-Z.:-]*[0-9]' "$RUN_LOG" | head -1 | sed 's/^Now listening on: //')
         if [[ -n "$URL" ]]; then
             echo ""
             echo "============================================================"
